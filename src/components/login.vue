@@ -9,7 +9,7 @@
       <form class="form" @submit.prevent.stop="formSubmit">
         <div class="form_line">
           <label for="user">Entrez le pseudo recherché</label>
-          <input id="user" class="blur" name="user" type="text" placeholder="" pattern="[a-zA-Z0-9_.-]{3,}" required="required" v-model="input_user" :disabled="login.completed === true"/>
+          <input id="user" class="blur" name="user" type="text" placeholder="" pattern="[a-zA-Z0-9_.-]{3,}" required="required" title="" oninvalid="event.preventDefault();" v-model="input_user" :disabled="login.completed === true"/>
         </div>
         <div class="form_line">
           <button class="blur" id="submit" type="submit" :disabled="login.completed === true">Espionner</button>
