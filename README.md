@@ -1,24 +1,5 @@
-# cronicles-vue
+### The Cronicles | Into the Unknown
 
-## Project setup
-```
-npm install
-```
+Cliquez sur [ce lien](https://monsieurcro.github.io/cronicles) pour accéder à la page.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[© MonsieurCro 2021](https://www.dealabs.com/profile/MonsieurCro/overview)
