@@ -281,6 +281,6 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
 }
 @media screen and (max-width: 500px){
   body {
-    font-size: 5.75vw;
+    font-size: 5.25vw;
   }
 }

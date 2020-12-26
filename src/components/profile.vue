@@ -2,7 +2,7 @@
   <div id="profile" class="centered shadow blur">
     <div class="section vertical">
       <img id="avatar" :src="publicPath + 'users/' + user.avatar"/><!-- :alt="user.name" -->
-      <p class="title">{{ user.name }}</p>
+      <a :href="'https://www.dealabs.com/profile/' + user.name" target="_blank"><p class="title">{{ user.name }}</p></a>
       <p class="subtitle">A rejoint le {{ user.date }}</p>
     </div>
     <div class="section vertical">
@@ -25,8 +25,7 @@
     },
     data() {
       return {
-        publicPath: process.env.BASE_URL + 'assets/',
-        assetsPath: '@/assets/'
+        publicPath: process.env.BASE_URL + 'assets/'
       }
     },
     methods: {},
