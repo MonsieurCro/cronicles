@@ -1,26 +1,48 @@
 <template>
-  <p class="debug">{{ debug }}</p>
-  <login v-bind:login="loginForm" @formSubmit="formCompleted" v-if="loginForm.completed === false"></login>
-  <profile v-bind:user="currentUser" v-if="loginForm.completed"></profile>
+  <welcome
+  v-if="appScreen === 0"
+  @showGame="switchStep" @showProfile="switchStep">
+  </welcome>
+  <game
+  v-if="appScreen === 1"
+  @showProfile="switchStep">
+  </game>
+  <login
+  v-if="appScreen === 2 && loginForm.completed === false"
+  v-bind:login="loginForm"
+  @formSubmit="formCompleted" @showGame="switchStep">
+  </login>
+  <profile
+  v-if="appScreen === 2 && loginForm.completed"
+  v-bind:user="currentUser"
+  @cleanUser="resetUser" @showGame="switchStep">
+  </profile>
+  <div class="debug">{{ debug }}</div>
 </template>
 
 <script>
-import login from './components/login.vue'
-import profile from './components/profile.vue'
-export default {
-  name: 'VueApp',
-  components: {
-    login,
-    profile
-  },
-  data() {
-    return {
-      loginForm: {
-        completed: false,
-        user: ''
-      },
-      currentUser: {},
-      playersList: [
+  import welcome from './components/welcome.vue'
+  import game from './components/game.vue'
+  import login from './components/login.vue'
+  import profile from './components/profile.vue'
+
+  export default {
+    name: 'VueApp',
+    components: {
+      welcome,
+      game,
+      login,
+      profile
+    },
+    data() {
+      return {
+        appScreen: 0,
+        loginForm: {
+          completed: false,
+          user: ''
+        },
+        currentUser: {},
+        playersList: [
         {
           id: '404',
           name: 'I AM ERROR',
@@ -175,54 +197,63 @@ export default {
           avatar: 'psyko5457.jpg',
           badges: [2]
         }
-      ],
-      badgesList: [
+        ],
+        badgesList: [
         { id: 0, name: 'Telepills 💊', description: 'Tu avais 6.66% de chance (1/15) de finir ici !', date: '???', icon: 'telepills.jpg' },
         { id: 1, name: 'Membre du Crollandais Volant ☠️', description: 'Le meilleur vaisseau, tout simplement.', date: '16/11/2020', icon: 'aworldofcro_black.jpg' },
         { id: 2, name: 'A Wonderful Winter 🏅', description: 'A bravé le Grand Nord...', date: '07/12/2020', icon: 'aworldofcro_normal.jpg' },
         { id: 3, name: 'A Wonderful Winter 🥇', description: '...et est reparti avec le trésor !', date: '07/12/2020', icon: 'aworldofcro_gold.jpg' },
-        { id: 4, name: 'A Wonderful Winter 🥈', description: '...et a failli repartir avec le trésor !', date: '07/12/2020', icon: 'aworldofcro_silver.jpg' },
+        { id: 4, name: 'A Wonderful Winter 🥈', description: '...et a failli gagner !', date: '07/12/2020', icon: 'aworldofcro_silver.jpg' },
         { id: 5, name: 'A Wonderful Winter 🥉', description: '...et y a laissé un orteil !', date: '07/12/2020', icon: 'aworldofcro_bronze.jpg' }
-      ]
-    }
-  },
-  methods: {
-    formCompleted: function(user){
-      this.loginForm.user = user.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '');
-      this.loginForm.completed = true;
-
-      this.playersList.forEach(this.findUser);
-      if(!this.currentUser.id){
-        this.currentUser = this.playersList[0];
-        console.warn('Vue | App | User not found');
-      }
-
-      this.currentUser.badges.forEach(this.renderBadges);
-    },
-    findUser: function(user){
-      if(user.id === this.loginForm.user){
-        this.currentUser = user;
+        ]
       }
     },
-    renderBadges: function(badge, index){
-      for(var i = 0; i < this.badgesList.length; i++){
-        if(this.badgesList[i].id === badge){
-          this.currentUser.badges[index] = this.badgesList[i];
+    methods: {
+      switchStep: function(step){
+        console.log('switch')
+        this.appScreen = step;
+      },
+      formCompleted: function(user){
+        this.loginForm.user = user.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '');
+        this.loginForm.completed = true;
+
+        this.playersList.forEach(this.findUser);
+        if(!this.currentUser.id){
+          this.currentUser = this.playersList[0];
+          console.warn('Vue | App | User not found');
         }
+
+        this.currentUser.badges.forEach(this.renderBadges);
+      },
+      findUser: function(user){
+        if(user.id === this.loginForm.user){
+          this.currentUser = user;
+        }
+      },
+      renderBadges: function(badge, index){
+        for(var i = 0; i < this.badgesList.length; i++){
+          if(this.badgesList[i].id === badge){
+            this.currentUser.badges[index] = this.badgesList[i];
+          }
+        }
+        if(!this.currentUser.badges[index].name){
+          this.currentUser.badges[index] = this.badgesList[0];
+          console.warn('Vue | App | Badge not found');
+        }
+      },
+      resetUser: function(){
+        this.currentUser = '';
+        this.loginForm.user = '';
+        this.loginForm.completed = false;
       }
-      if(!this.currentUser.badges[index].name){
-        this.currentUser.badges[index] = this.badgesList[0];
-        console.warn('Vue | App | Badge not found');
+    },
+    computed: {
+      debug: function(){
+        var data = ''; //'Step: ' + this.appScreen;
+        return data;
       }
-    }
-  },
-  computed: {
-    debug: function(){
-      var data = ''; //this.currentUser;
-      return data;
     }
   }
-}
 </script>
 
 <style>
@@ -237,10 +268,12 @@ export default {
   }
   .debug {
     position: absolute;
-    left: 0; bottom: 0; right: auto; top: auto;
+    left: .5em; bottom: .5em; right: auto; top: auto;
     font-size: 75%;
     font-style: italic;
     color: yellow;
+    background-color: rgba(0, 0, 0, .25);
+    padding: .25em;
     z-index: 9999;
   }
 </style>

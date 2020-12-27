@@ -1,4 +1,6 @@
 <template>
+  <div class="fixed top right"><a @click.prevent.stop="showGame">Jeu</a></div>
+
   <div id="login" class="centered shadow blur">
     <div class="section horizontal">
       <img class="fit_image mobile" id="logo" src="assets/logo.png" alt="The Cronicles | Into the Unknown"/>
@@ -37,8 +39,12 @@
         } else {
           console.warn('Vue | Login Component | No user');
         }
+      },
+      showGame: function(){
+        this.$emit('showGame', 1);
       }
     },
+    emits: {},
     computed: {}
   }
 </script>

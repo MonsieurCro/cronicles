@@ -67,6 +67,12 @@ body {
   left: 0; top: 0; right: 0; bottom: 0;
   background-color: rgba(49, 20, 89, .25);
 }
+.close {
+  position: absolute;
+  top: .75em; right: .75em; bottom: auto; left: auto;
+  line-height: 1em;
+  cursor: pointer;
+}
 h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   margin: .5em auto;
@@ -207,14 +213,16 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
 /*Home*/
 #main .fixed {
   position: absolute;
-  top: 1em; bottom: auto;
-  height: 2.5em; width: auto;
+  height: auto; max-height: 2.5em; width: auto;
   z-index: 2;
 }
-#main .fixed#topleft {
+#main .fixed.top {
+  top: 1em; bottom: auto;
+}
+#main .fixed.left {
   left: 1em; right: auto;
 }
-#main .fixed#topright {
+#main .fixed.right {
   right: 1em; left: auto;
 }
 #login {
