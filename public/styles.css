@@ -67,6 +67,20 @@ body {
   left: 0; top: 0; right: 0; bottom: 0;
   background-color: rgba(49, 20, 89, .25);
 }
+#main .fixed {
+  position: absolute;
+  height: auto; max-height: 2.5em; width: auto;
+  z-index: 2;
+}
+#main .fixed.top {
+  top: 1em; bottom: auto;
+}
+#main .fixed.left {
+  left: 1em; right: auto;
+}
+#main .fixed.right {
+  right: 1em; left: auto;
+}
 .close {
   position: absolute;
   top: .75em; right: .75em; bottom: auto; left: auto;
@@ -165,7 +179,14 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
   align-items: center;
   flex-direction: column;
   margin: auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background-color: rgba(0, 101, 130, .5);
+}
+.section::-webkit-scrollbar {
+  width: 0; height: 0;
+  display: none;
 }
 .section:first-of-type {
   background-color: rgba(255, 129, 0, .5);
@@ -174,6 +195,10 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
   content: '';
   display: table;
   clear: both;
+}
+.section.full {
+  width: 100%; height: 100%;
+  padding: .75em;
 }
 .section.horizontal {
   width: 100%; height: 50%;
@@ -210,68 +235,6 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
 .mobile {
   display: none;
 }
-/*Home*/
-#main .fixed {
-  position: absolute;
-  height: auto; max-height: 2.5em; width: auto;
-  z-index: 2;
-}
-#main .fixed.top {
-  top: 1em; bottom: auto;
-}
-#main .fixed.left {
-  left: 1em; right: auto;
-}
-#main .fixed.right {
-  right: 1em; left: auto;
-}
-#login {
-  height: 75%; max-height: 375px;
-  width: 85%; max-width: 600px;
-}
-#login .title {
-  font-size: 375%;
-  margin: .025em auto;
-}
-#login .subtitle {
-  font-size: 125%;
-  margin: .0125em auto;
-}
-/*Profile*/
-#profile {
-  height: 80%; max-height: 500px;
-  width: 85%; max-width: 1100px;
-}
-#avatar {
-  width: 5em; height: 5em;
-  border-radius: 50%;
-  margin: .75em;
-  background-color: rgba(0, 0, 0, .15);
-  overflow: hidden;
-}
-.badge {
-  width: 100%;
-  text-align: left;
-  padding: .25em .5em;
-}
-.badge .icon {
-  display: inline-block;
-  height: 3em; width: 3em;
-  vertical-align: middle;
-  background-color: rgba(0, 0, 0, .15);
-  overflow: hidden;
-}
-.badge .description {
-  display: inline-block;
-  width: calc(100% - 3em);
-  vertical-align: middle;
-  padding-left: .5em;
-}
-.badge .description * {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 /*Queries*/
 @media screen and (max-width: 900px){
   body {
@@ -289,6 +252,6 @@ button:not(:disabled):hover, input[type="submit"]:not(:disabled):hover, .button:
 }
 @media screen and (max-width: 500px){
   body {
-    font-size: 5.25vw;
+    font-size: 5vw;
   }
 }

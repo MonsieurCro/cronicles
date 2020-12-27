@@ -1,7 +1,7 @@
 <template>
   <div class="fixed top right"><a @click.prevent.stop="showProfile">Profil</a></div>
 
-  <div id="login" class="centered shadow blur">
+  <div id="welcome" class="centered shadow blur">
     <div class="section horizontal">
       <img class="fit_image mobile" id="logo" src="assets/logo.png" alt="The Cronicles | Into the Unknown"/>
       <h1 class="title desktop">The Cronicles</h1>
@@ -10,8 +10,11 @@
     <div class="section horizontal">
       <div class="form">
         <div class="form_line">
-          <label>Accéder au jeu</label>
-          <button class="blur" type="submit" @click.prevent.stop="showGame">Lancer</button>
+          <label for="game">Accéder au jeu du moment</label>
+          <input id="game" class="blur" name="game" type="text" value="TEST_GAME" placeholder="" pattern="" title="" oninvalid="event.preventDefault();" disabled="disabled"/>
+        </div>
+        <div class="form_line">
+          <button class="blur" type="submit" @click.prevent.stop="showGame">Démarrer</button>
         </div>
       </div>
     </div>
@@ -39,4 +42,17 @@
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+  #welcome {
+    height: 75%; max-height: 375px;
+    width: 85%; max-width: 600px;
+  }
+  #welcome .title {
+    font-size: 375%;
+    margin: .025em auto;
+  }
+  #welcome .subtitle {
+    font-size: 125%;
+    margin: .0125em auto;
+  }
+</style>

@@ -2,7 +2,7 @@
   <div class="fixed top right"><a @click.prevent.stop="showProfile">Profil</a></div>
 
   <div id="game" class="centered shadow blur">
-    <p>TODO</p>
+    <p>NOT YET!</p>
   </div>
 </template>
 

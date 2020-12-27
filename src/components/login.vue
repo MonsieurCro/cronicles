@@ -10,11 +10,11 @@
     <div class="section horizontal">
       <form class="form" @submit.prevent.stop="formSubmit">
         <div class="form_line">
-          <label for="user">Entrez le pseudo recherché</label>
-          <input id="user" class="blur" name="user" type="text" placeholder="" pattern="[a-zA-Z0-9_.-]{3,}" required="required" title="" oninvalid="event.preventDefault();" v-model="input_user" :disabled="login.completed === true"/>
+          <label for="user">Entrer un pseudo ou afficher la liste</label>
+          <input id="user" class="blur" name="user" type="text" placeholder="" pattern="[a-zA-Z0-9_.- ]{0,}" title="" oninvalid="event.preventDefault();" v-model="input_user" :disabled="login.user != ''"/><!-- required="required" -->
         </div>
         <div class="form_line">
-          <button class="blur" id="submit" type="submit" :disabled="login.completed === true">Espionner</button>
+          <button class="blur" id="submit" type="submit" :disabled="login.user != ''">{{ buttonMessage }}</button>
         </div>
       </form>
     </div>
@@ -34,10 +34,10 @@
     },
     methods: {
       formSubmit: function(){
-        if(this.input_user && this.input_user != ''){
+        if(this.input_user && this.input_user.trim() != ''){
           this.$emit('formSubmit', this.input_user);
         } else {
-          console.warn('Vue | Login Component | No user');
+          this.$emit('formSkipped');
         }
       },
       showGame: function(){
@@ -45,8 +45,29 @@
       }
     },
     emits: {},
-    computed: {}
+    computed: {
+      buttonMessage: function(){
+        if(this.input_user.trim() != ''){
+          return 'Espionner'
+        } else {
+          return 'Visualiser'
+        }
+      },
+    }
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+  #login {
+    height: 75%; max-height: 375px;
+    width: 85%; max-width: 600px;
+  }
+  #login .title {
+    font-size: 375%;
+    margin: .025em auto;
+  }
+  #login .subtitle {
+    font-size: 125%;
+    margin: .0125em auto;
+  }
+</style>

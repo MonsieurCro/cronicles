@@ -8,14 +8,19 @@
   @showProfile="switchStep">
   </game>
   <login
-  v-if="appScreen === 2 && loginForm.completed === false"
+  v-if="appScreen === 2 && !loginForm.list && loginForm.user === ''"
   v-bind:login="loginForm"
-  @formSubmit="formCompleted" @showGame="switchStep">
+  @formSubmit="loginCompleted" @formSkipped="displayList" @showGame="switchStep">
   </login>
+  <players
+  v-if="appScreen === 2 && loginForm.list"
+  v-bind:users="playersList"
+  @playerSelected="loginCompleted" @hideList="resetLogin" @showGame="switchStep">
+  </players>
   <profile
-  v-if="appScreen === 2 && loginForm.completed"
+  v-if="appScreen === 2 && loginForm.user != ''"
   v-bind:user="currentUser"
-  @cleanUser="resetUser" @showGame="switchStep">
+  @cleanUser="resetLogin" @showGame="switchStep">
   </profile>
   <div class="debug">{{ debug }}</div>
 </template>
@@ -24,6 +29,7 @@
   import welcome from './components/welcome.vue'
   import game from './components/game.vue'
   import login from './components/login.vue'
+  import players from './components/players.vue'
   import profile from './components/profile.vue'
 
   export default {
@@ -32,13 +38,14 @@
       welcome,
       game,
       login,
+      players,
       profile
     },
     data() {
       return {
         appScreen: 0,
         loginForm: {
-          completed: false,
+          list: false,
           user: ''
         },
         currentUser: {},
@@ -122,9 +129,9 @@
         },
         {
           id: 'rhezor',
-          name: 'Rezhor',
+          name: 'Rhezor',
           date: '16/11/2020',
-          avatar: 'rezhor.jpg',
+          avatar: 'rhezor.jpg',
           badges: [2,4]
         },
         {
@@ -213,9 +220,9 @@
         console.log('switch')
         this.appScreen = step;
       },
-      formCompleted: function(user){
-        this.loginForm.user = user.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '');
-        this.loginForm.completed = true;
+      loginCompleted: function(user){
+        this.loginForm.user = user.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '');
+        this.loginForm.list = false;
 
         this.playersList.forEach(this.findUser);
         if(!this.currentUser.id){
@@ -241,10 +248,15 @@
           console.warn('Vue | App | Badge not found');
         }
       },
-      resetUser: function(){
+      displayList: function(){
         this.currentUser = '';
         this.loginForm.user = '';
-        this.loginForm.completed = false;
+        this.loginForm.list = true;
+      },
+      resetLogin: function(){
+        this.currentUser = '';
+        this.loginForm.user = '';
+        this.loginForm.list = false;
       }
     },
     computed: {
