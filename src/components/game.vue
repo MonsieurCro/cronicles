@@ -2,7 +2,9 @@
   <div class="fixed top right"><a @click.prevent.stop="showProfile">Profil</a></div>
 
   <div id="game" class="centered shadow blur">
-    <p>NOT YET!</p>
+    <div class="section full">
+      <p>NOT YET!</p>
+    </div>
   </div>
 </template>
 
@@ -20,9 +22,14 @@
         this.$emit('showProfile', 2);
       }
     },
-    emits: {},
+    emits: ['showProfile'],
     computed: {}
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+  #game {
+    height: 80%; max-height: 500px;
+    width: 85%; max-width: 1100px;
+  }
+</style>

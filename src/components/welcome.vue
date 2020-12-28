@@ -10,7 +10,7 @@
     <div class="section horizontal">
       <div class="form">
         <div class="form_line">
-          <label for="game">Accéder au jeu du moment</label>
+          <label for="game">Accéder à l'aventure</label>
           <input id="game" class="blur" name="game" type="text" value="TEST_GAME" placeholder="" pattern="" title="" oninvalid="event.preventDefault();" disabled="disabled"/>
         </div>
         <div class="form_line">
@@ -37,7 +37,7 @@
         this.$emit('showProfile', 2);
       }
     },
-    emits: {},
+    emits: ['showGame', 'showProfile'],
     computed: {}
   }
 </script>

@@ -4,7 +4,6 @@
   <div id="players" class="centered shadow blur">
     <div class="section full">
       <div class="user" v-for="user in cleanUserList" :key="user" @click.prevent.stop="playerSelected(user.name)">
-        <!-- <img class="avatar" :src="publicPath + 'users/' + user.avatar"/> --><!-- :alt="user.name" -->
         <div class="title">{{ user.name }}</div>
       </div>
     </div>
@@ -34,12 +33,16 @@
         this.$emit('showGame', 1);
       }
     },
-    emits: {},
+    emits: ['playerSelected', 'hideList', 'showGame'],
     computed: {
       cleanUserList: function(){
         return this.users.filter(function(item, index){
           return index > 0;
-        })
+        }).sort(function(a, b){
+          if(a.id < b.id) { return -1; }
+          if(a.id > b.id) { return 1;  }
+          return 0;
+        });
       }
     }
   }

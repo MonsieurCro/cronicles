@@ -208,16 +208,15 @@
         badgesList: [
         { id: 0, name: 'Telepills 💊', description: 'Tu avais 6.66% de chance (1/15) de finir ici !', date: '???', icon: 'telepills.jpg' },
         { id: 1, name: 'Membre du Crollandais Volant ☠️', description: 'Le meilleur vaisseau, tout simplement.', date: '16/11/2020', icon: 'aworldofcro_black.jpg' },
-        { id: 2, name: 'A Wonderful Winter 🏅', description: 'A bravé le Grand Nord...', date: '07/12/2020', icon: 'aworldofcro_normal.jpg' },
-        { id: 3, name: 'A Wonderful Winter 🥇', description: '...et est reparti avec le trésor !', date: '07/12/2020', icon: 'aworldofcro_gold.jpg' },
-        { id: 4, name: 'A Wonderful Winter 🥈', description: '...et a failli gagner !', date: '07/12/2020', icon: 'aworldofcro_silver.jpg' },
-        { id: 5, name: 'A Wonderful Winter 🥉', description: '...et y a laissé un orteil !', date: '07/12/2020', icon: 'aworldofcro_bronze.jpg' }
+        { id: 2, name: 'A Wonderful Winter 🏅', description: 'A bravé le Grand Nord…', date: '07/12/2020', icon: 'aworldofcro_normal.jpg' },
+        { id: 3, name: 'A Wonderful Winter 🥇', description: '…et est reparti avec le trésor !', date: '07/12/2020', icon: 'aworldofcro_gold.jpg' },
+        { id: 4, name: 'A Wonderful Winter 🥈', description: '…et a failli gagner !', date: '07/12/2020', icon: 'aworldofcro_silver.jpg' },
+        { id: 5, name: 'A Wonderful Winter 🥉', description: '…et y a laissé un orteil !', date: '07/12/2020', icon: 'aworldofcro_bronze.jpg' }
         ]
       }
     },
     methods: {
       switchStep: function(step){
-        console.log('switch')
         this.appScreen = step;
       },
       loginCompleted: function(user){
@@ -227,7 +226,7 @@
         this.playersList.forEach(this.findUser);
         if(!this.currentUser.id){
           this.currentUser = this.playersList[0];
-          console.warn('Vue | App | User not found');
+          console.warn('Vue | User not found');
         }
 
         this.currentUser.badges.forEach(this.renderBadges);
@@ -245,7 +244,7 @@
         }
         if(!this.currentUser.badges[index].name){
           this.currentUser.badges[index] = this.badgesList[0];
-          console.warn('Vue | App | Badge not found');
+          console.warn('Vue | Badge not found');
         }
       },
       displayList: function(){

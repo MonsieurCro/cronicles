@@ -84,6 +84,7 @@ body {
 .close {
   position: absolute;
   top: .75em; right: .75em; bottom: auto; left: auto;
+  z-index: 1000;
   line-height: 1em;
   cursor: pointer;
 }

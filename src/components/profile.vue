@@ -39,7 +39,7 @@
         this.$emit('showGame', 1);
       }
     },
-    emits: {},
+    emits: ['cleanUser', 'showGame'],
     computed: {}
   }
 </script>

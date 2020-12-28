@@ -11,7 +11,7 @@
       <form class="form" @submit.prevent.stop="formSubmit">
         <div class="form_line">
           <label for="user">Entrer un pseudo ou afficher la liste</label>
-          <input id="user" class="blur" name="user" type="text" placeholder="" pattern="[a-zA-Z0-9_.- ]{0,}" title="" oninvalid="event.preventDefault();" v-model="input_user" :disabled="login.user != ''"/><!-- required="required" -->
+          <input id="user" class="blur" name="user" type="text" placeholder="" title="" oninvalid="event.preventDefault();" v-model="input_user" :disabled="login.user != ''"/><!-- pattern="[a-zA-Z0-9_.- ]{1,}" required="required" -->
         </div>
         <div class="form_line">
           <button class="blur" id="submit" type="submit" :disabled="login.user != ''">{{ buttonMessage }}</button>
@@ -44,7 +44,7 @@
         this.$emit('showGame', 1);
       }
     },
-    emits: {},
+    emits: ['formSubmit', 'formSkipped', 'showGame'],
     computed: {
       buttonMessage: function(){
         if(this.input_user.trim() != ''){
